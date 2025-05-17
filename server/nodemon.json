@@ -1,0 +1,15 @@
+{
+    "watch": ["server/"],
+    "ignore": [
+      "**/node_modules/**",
+      "**/.git/**",
+      "*.log",
+      "tmp/*",
+      ".vscode/",
+      "*.tmp.*"
+    ],
+    "ext": "js",
+    "verbose": true,
+    "delay": 1000,
+    "pollingInterval": 1000
+  }
