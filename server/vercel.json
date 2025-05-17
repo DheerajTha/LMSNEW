@@ -13,21 +13,21 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
+      "source": "/api/(.*)",
+      "destination": "/server.js"
     },
     {
-      "src": "/static/(.*)",
+      "source": "/static/(.*)",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"
       },
       "continue": true
     },
     {
-      "src": "/(.*)",
-      "dest": "/client/build/index.html",
+      "source": "/(.*)",
+      "destination": "/client/build/index.html",
       "headers": {
         "Cache-Control": "no-cache"
       }
