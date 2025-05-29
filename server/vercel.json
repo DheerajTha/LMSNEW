@@ -1,36 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
+  "$schema": "https://openapi.vercel.sh/schemas/v1/vercel.json",
   "rewrites": [
+    { "source": "/user", "destination": "/api/user" }
+  ],
+  "headers": [
     {
-      "source": "/api/(.*)",
-      "destination": "/server.js"
-    },
-    {
-      "source": "/static/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "continue": true
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/client/build/index.html",
-      "headers": {
-        "Cache-Control": "no-cache"
-      }
+      "source": "/user",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
     }
   ]
 }
