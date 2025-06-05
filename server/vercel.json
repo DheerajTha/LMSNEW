@@ -1,13 +1,15 @@
 {
-  "rewrites": [
-    { "source": "/user", "destination": "/api/user" }
-  ],
-  "headers": [
-    {
-      "source": "/user",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store" }
-      ]
-    }
-  ]
+    "builds":[
+        {
+            "src": "./server.js",
+            "use": "@vercel/node"
+        }
+
+    ],
+    "routes":[
+        {
+            "src": "/(.*)",
+            "dest": "/server.js"
+        }
+    ]
 }
