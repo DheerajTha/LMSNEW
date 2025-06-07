@@ -6,7 +6,7 @@ import { clerkWebhooks } from './controllers/webhooks.js';
 
 const app = express();
 
-// db
+// db Connet
 
 await connectDB()
 
@@ -20,4 +20,5 @@ app.post('/clerk', express.json(), clerkWebhooks)
 
 const PORT = process.env.PORT || 5000
 
-app.listen(PORT, () =>{console.log(`server is Running on ${PORT}`)} )
+app.listen(PORT, () =>{console.log(`server is Running on ${PORT}`)})
+
