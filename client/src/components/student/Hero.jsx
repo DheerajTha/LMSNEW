@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Searchbar from "./Searchbar";
 
 const Typewriter = ({ phrases, delay = 100 }) => {
-  const [currentText, setCurrentText] = useState('');
+  const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
@@ -55,12 +55,12 @@ const Hero = () => {
         <div className="lg:w-1/2 space-y-6 z-10">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-indigo-600">
-              <Typewriter 
+              <Typewriter
                 phrases={[
                   "Unlock Your Learning Journey",
                   "Shape Your Future with Us",
-                  "Grow With Each Lesson"
-                ]} 
+                  "Grow With Each Lesson",
+                ]}
               />
             </span>
             <span className="block mt-3 relative">
@@ -69,8 +69,8 @@ const Hero = () => {
           </h1>
 
           <p className="text-base text-gray-600 leading-relaxed animate-fadeIn">
-            Join our community of passionate learners and unlock your potential with 
-            industry-leading courses taught by world-class instructors.
+            Join our community of passionate learners and unlock your potential
+            with industry-leading courses taught by world-class instructors.
           </p>
 
           <div className="pt-4 animate-fadeInUp">
@@ -97,7 +97,9 @@ const Hero = () => {
               <p className="text-sm sm:text-lg font-bold text-gray-900">
                 Your Success Story Starts
               </p>
-              <p className="text-xs sm:text-sm text-gray-600">Achieve what you deserve</p>
+              <p className="text-xs sm:text-sm text-gray-600">
+                Achieve what you deserve
+              </p>
             </div>
           </div>
 
@@ -118,26 +120,58 @@ const Hero = () => {
       {/* Animation styles */}
       <style jsx>{`
         @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
         }
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @keyframes fadeInRight {
-          from { opacity: 0; transform: translateX(20px); }
-          to { opacity: 1; transform: translateX(0); }
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
         }
         @keyframes fadeInLeft {
-          from { opacity: 0; transform: translateX(-20px); }
-          to { opacity: 1; transform: translateX(0); }
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
         }
         .animate-blob {
           animation: blob 7s infinite ease-in-out;

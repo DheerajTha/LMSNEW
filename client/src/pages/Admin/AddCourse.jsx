@@ -235,7 +235,7 @@ const AddCourse = () => {
       </h1>
 
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit} enctype="multipart/form-data"
         className="bg-white rounded-lg relative cursor-pointer shadow-md p-6"
       >
         {/* Course Title */}
