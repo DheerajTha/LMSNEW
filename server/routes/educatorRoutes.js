@@ -3,6 +3,7 @@ import express from 'express'
 import { addCourse, updateRoleEducator } from '../controllers/educatorController.js'
 import upload from '../configs/multer.js'
 import { protectEducator } from '../middlewares/authMiddleware.js'
+import { requireAuth } from '@clerk/express'
 
 const educatorRouter = express.Router()
 
@@ -17,6 +18,7 @@ const debugFormData = (req, res, next) => {
 educatorRouter.get('/update-role', express.json(), updateRoleEducator)
 educatorRouter.post(
   '/add-course',
+  requireAuth(),
   debugFormData,
   upload.any(),  
   protectEducator,
