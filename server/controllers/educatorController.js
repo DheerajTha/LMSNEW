@@ -21,27 +21,39 @@ export const updateRoleEducator = async (req,res) =>{
 
 //Add new course
 
-
 export const addCourse = async (req, res) => {
     try {
+        console.log('Request body:', req.body);
+        console.log('Request files:', req.files);
+        console.log('All files received:', req.files?.map(f => ({ fieldname: f.fieldname, 
+        originalname: f.originalname })));
+        
         const {courseData} = req.body
-        const imagesFile = req.file
+        const imagesFile = req.files?.find(file => file.fieldname === 'thumbnail')
         const educatorId = req.auth.userId
 
         if(!imagesFile){
-            return res.json({success: false, message: "Thumnail Not Atteched"})
+            return res.json({success: false, message: "Thumbnail Not Attached"})
         }
-        const paredCourseData = await JSON.parse(courseData)
-        paredCourseData.educator = educatorId
-        const newCourse =  await Course.create(paredCourseData)
+
+        if(!courseData){
+            return res.json({success: false, message: "Course data is required"})
+        }
+
+        const parsedCourseData = JSON.parse(courseData)
+        parsedCourseData.educator = educatorId
+        
+        console.log('Parsed course data:', parsedCourseData);
+        
+        const newCourse = await Course.create(parsedCourseData)
         const imageUpload = await cloudinary.uploader.upload(imagesFile.path)
         newCourse.courseThumbnail = imageUpload.secure_url
         await newCourse.save()
-
-        res.json({success: true, message: 'Course Added'})
+        
+        res.json({success: true, message: 'Course Added Successfully', courseId: newCourse._id})
 
     } catch (error) {
-
+        console.error('Error in addCourse:', error);
         res.json({success: false, message: error.message})
     }
 }

@@ -23,7 +23,7 @@ app.use(clerkMiddleware())
 // Route 
 app.get('/', (req, res) => res.send("APi Workings"))
 app.post('/clerk', express.json(), clerkWebhooks)
-app.use('/api/educator', express.json(), educatorRouter)
+app.use('/api/educator', educatorRouter)
 
 
 const PORT = process.env.PORT || 5000

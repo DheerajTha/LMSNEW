@@ -9,11 +9,13 @@ import {
 } from "react-icons/fi";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
+import { useAuth } from "@clerk/clerk-react";
 
 const AddCourse = () => {
   const quillRef = useRef(null);
   const editorRef = useRef(null);
   const fileInputRef = useRef(null);
+  const { getToken } = useAuth();
 
   const [courseTitle, setCourseTitle] = useState("");
   const [coursePrice, setCoursePrice] = useState(0);
@@ -174,20 +176,44 @@ const AddCourse = () => {
       // Get the HTML content from Quill editor
       const description = quillRef.current.root.innerHTML;
 
+      // Transform chapters to match backend schema
+      const transformedChapters = chapters.map((chapter, chapterIndex) => ({
+        chapterId: chapter.id,
+        chapterOrder: chapterIndex + 1,
+        chapterTitle: chapter.title,
+        chapterContent: chapter.lectures.map((lecture, lectureIndex) => ({
+          lectureId: lecture.id,
+          lectureTitle: lecture.lectureTitle,
+          lectureDuration: parseInt(lecture.lectureDuration),
+          lectureUrl: lecture.lectureUrl,
+          isPreviewFree: lecture.isPreviewFree,
+          lectureOrder: lectureIndex + 1
+        }))
+      }));
+
+      // Prepare course data object
+      const courseData = {
+        courseTitle,
+        courseDescription: description,
+        coursePrice: coursePrice.toString(), // Model expects string
+        discount,
+        courseContent: transformedChapters
+      };
+
       // Prepare form data
       const formData = new FormData();
-      formData.append("title", courseTitle);
-      formData.append("description", description);
-      formData.append("price", coursePrice);
-      formData.append("discount", discount);
+      formData.append("courseData", JSON.stringify(courseData));
       formData.append("thumbnail", imageFile);
-      formData.append("chapters", JSON.stringify(chapters));
 
-      // Here you would typically send the data to your backend
-      // Example with fetch:
-      /*
-      const response = await fetch('/api/courses', {
+      // Get authentication token
+      const token = await getToken();
+
+      // Send the data to your backend
+      const response = await fetch('/api/educator/add-course', {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
         body: formData
       });
       
@@ -197,19 +223,12 @@ const AddCourse = () => {
       
       const result = await response.json();
       console.log('Course created:', result);
-      */
 
-      // For now, we'll just log the form data
-      console.log("Form data:", {
-        courseTitle,
-        description,
-        coursePrice,
-        discount,
-        chapters,
-        image: imageFile,
-      });
-
-      alert("Course created successfully!");
+      if (result.success) {
+        alert("Course created successfully!");
+      } else {
+        throw new Error(result.message || 'Failed to create course');
+      }
       // Reset form after successful submission
       setCourseTitle("");
       setCoursePrice(0);
