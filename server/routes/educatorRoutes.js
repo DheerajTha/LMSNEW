@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { addCourse, updateRoleEducator } from '../controllers/educatorController.js'
+import { addCourse, educatorDashboard, getEducatorCourses, getEnrolledStudentsData, updateRoleEducator } from '../controllers/educatorController.js'
 import upload from '../configs/multer.js'
 import { protectEducator } from '../middlewares/authMiddleware.js'
 import { requireAuth } from '@clerk/express'
@@ -13,6 +13,7 @@ const debugFormData = (req, res, next) => {
   console.log('Content-Type:', req.headers['content-type']);
   console.log('Raw body available:', !!req.body);
   next();
+
 };
 
 educatorRouter.get('/update-role', express.json(), updateRoleEducator)
@@ -24,5 +25,11 @@ educatorRouter.post(
   protectEducator,
   addCourse
 );
+educatorRouter.get('/courses', protectEducator, getEducatorCourses )
+educatorRouter.get('/dashboard', protectEducator, educatorDashboard )
+educatorRouter.get('/enrolled-students', protectEducator, getEnrolledStudentsData )
+
+
+
 
 export default educatorRouter;
