@@ -2,7 +2,6 @@ import { Webhook } from "svix";
 import User from "../models/user.js";
 import Stripe from "stripe";
 import { Purchase } from "../models/purchase.js";
-import { use } from "react";
 import Course from "../models/course.js";
 
 export const clerkWebhooks = async (req, res) => {
