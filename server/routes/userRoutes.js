@@ -1,5 +1,5 @@
 import express from 'express'
-import { getUserData, userEnrolledCourse } from '../controllers/userController.js'
+import { getUserData, purchaseCourse, userEnrolledCourse } from '../controllers/userController.js'
 
 
 const userRouter = express.Router()
@@ -7,6 +7,8 @@ const userRouter = express.Router()
 
 userRouter.get("/data",  getUserData)
 userRouter.get("/enrolled-Course",  userEnrolledCourse)
+userRouter.post("/purchase",  purchaseCourse)
+
 
 
 export default userRouter;
