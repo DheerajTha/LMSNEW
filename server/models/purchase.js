@@ -12,7 +12,7 @@ const purchaseSchema = new mongoose.Schema({
         type:Number,required:true
     },
     status:{
-        type:String,enum:['pending','successed', 'failed'],
+        type:String,enum:['pending','completed', 'failed'],
         default:'pending'
     }
 }, {timestamps:true} );
